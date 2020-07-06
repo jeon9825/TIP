@@ -10,7 +10,7 @@ public class BJ1024 {
 
 			if (tmp % i == 0) {
 				int x = tmp / i + 1;
-				if (x >= 0) { //TODO: 왜 0보다 크거나 같을 때를 비교하는지 모르겠음...
+				if (x >= 0) { // 시작이 0부터 가능
 					for (int j = 0; j < i; j++) {
 						System.out.print(x + j + " ");
 					}
