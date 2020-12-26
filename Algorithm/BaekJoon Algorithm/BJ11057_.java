@@ -16,9 +16,9 @@ public class BJ11057_ {
 		
 		int count = 0;
 		for (int i = previous; i <= 9; i++) {
-			count += solution(index + 1, i) % 10007;
+			count += solution(index + 1, i) % MOD;
 		}
-		return dp[index][previous] = count % 10007;
+		return dp[index][previous] = count % MOD;
 	}
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
