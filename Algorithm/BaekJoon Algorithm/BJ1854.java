@@ -3,10 +3,7 @@ package algorithm.me;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class BJ1854 { // K번째 최단 경로 찾기
 
@@ -26,7 +23,7 @@ public class BJ1854 { // K번째 최단 경로 찾기
         dist = new PriorityQueue[n + 1];
         for (int i = 1; i <= n; i++) {
             list[i] = new ArrayList<>();
-            dist[i] = new PriorityQueue<>(k);
+            dist[i] = new PriorityQueue<>(k, Comparator.reverseOrder());
         }
 
         for (int i = 0; i < m; i++) {
@@ -43,7 +40,7 @@ public class BJ1854 { // K번째 최단 경로 찾기
         StringBuilder builder = new StringBuilder();
         for (int i = 1; i <= n; i++) {
             if (dist[i].size() == k)
-                builder.append((dist[i].peek() * -1) + "\n");
+                builder.append((dist[i].peek()) + "\n");
             else
                 builder.append("-1\n");
         }
@@ -53,17 +50,17 @@ public class BJ1854 { // K번째 최단 경로 찾기
     private static void dijkstra(int start) {
         PriorityQueue<Edge> queue = new PriorityQueue<>();
         queue.add(new Edge(start, 0));
-        dist[start].add(0); // 1번 정점이 출발지
+        dist[start].add(0);
 
         while (!queue.isEmpty()) {
             Edge now = queue.poll();
             for (Edge edge : list[now.id]) {
                 if (dist[edge.id].size() < k) {
-                    dist[edge.id].add((now.cost + edge.cost) * -1);
+                    dist[edge.id].add(now.cost + edge.cost);
                     queue.add(new Edge(edge.id, now.cost + edge.cost));
-                } else if (dist[edge.id].peek() * -1 > (now.cost) + edge.cost) {
+                } else if (dist[edge.id].peek() > now.cost + edge.cost) {
                     dist[edge.id].poll();
-                    dist[edge.id].add((now.cost + edge.cost) * -1);
+                    dist[edge.id].add(now.cost + edge.cost);
                     queue.add(new Edge(edge.id, now.cost + edge.cost));
                 }
             }
